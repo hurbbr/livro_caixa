@@ -72,7 +72,11 @@ class AppController extends Controller
 
     public function beforeRender(Event $event)
     {
-        $usuario = $this->Auth->user();
+        if ($this->Auth->user()) {
+            $usuario = $this->Auth->user();
+        } else {
+            $usuario = [];
+        }
         $this->viewBuilder()->setTheme('Gentelella');
 
         $this->set(compact('usuario'));

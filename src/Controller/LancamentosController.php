@@ -85,6 +85,11 @@ class LancamentosController extends AppController
         $contas = $this->Lancamentos->Contas->find('list', ['limit' => 200])->where(['user_id' => $user]);
         $categorias = $this->Lancamentos->Categorias->find('list', ['limit' => 200])->where(['user_id' => $user]);
 
+        if ($contas->count() == 0 || $categorias->count() == 0) {
+            $this->Flash->error(__('Adicione ao menos uma conta ou categoria!'));
+            return $this->redirect(['action' => 'index']);
+        }
+
         $this->set(compact('lancamento', 'contas', 'categorias', 'user'));
     }
 
