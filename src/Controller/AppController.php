@@ -93,4 +93,21 @@ class AppController extends Controller
     {
         return $this->Auth->user();
     }
+    /**
+     * TrataValor
+     * 
+     * Retorna o valor de R$ 00,00 para float
+     *
+     * @param string $valor
+     * @return floar
+     */
+    public function trataValor(string $valor = null)
+    {
+        if (!$valor) {
+            return (float) 0.00;
+        } else {
+            $valor = trim(str_replace('R$', '', str_replace('.', '', $valor)));
+            return (float) str_replace(',', '.', $valor);
+        }
+    }
 }

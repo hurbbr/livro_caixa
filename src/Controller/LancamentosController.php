@@ -109,7 +109,7 @@ class LancamentosController extends AppController
         $user = $this->usuarioLogado()['id'];
         if ($this->request->is(['patch', 'post', 'put'])) {
             $post = $this->request->getData();
-            $post['valor'] = (float) str_replace(',', '.', str_replace('R$', '', $post['valor']));
+            $post['valor'] = $this->trataValor($post['valor']);
             $data = explode('/', $post['data']);
             $post['data'] = "{$data[2]}-{$data[1]}-{$data[0]}";
             $lancamento = $this->Lancamentos->patchEntity($lancamento, $post);
